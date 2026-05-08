@@ -15,7 +15,7 @@ def main():
 
     try:
         response = requests.get(
-            "https://rest.coincap.io/v3/assets/bitcoin?apiKey=3897554ec6809e6b4ed557466365fbfc289187466ed9dab4599ab5de4c324e23"
+            "https://rest.coincap.io/v3/assets/bitcoin"
         )
     except requests.RequestException:
         print("API request failed")
