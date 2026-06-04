@@ -1,26 +1,25 @@
 from datetime import date
-from validator_collection import checkers
 import inflect
 import sys
 
 
 def main():
     birthday = input("Date of birth: ").strip()
-    if not check_input(birthday):
+    try:
+        minutes = to_minutes(birthday)
+    except ValueError:
         sys.exit("Invalid date")
-    print(to_words(to_minutes(birthday)))
-
-
-def check_input(birthday):
-    if "-" in birthday and checkers.is_date(birthday):
-        return True
     else:
-        return False
+        print(to_words(minutes))
 
 
-def to_minutes(birthday):
-    year, month, day = birthday.split("-")
-    difference = date.today() - date(int(year), int(month), int(day))
+def to_minutes(date_of_birth, today=date.today()):
+    birthday = date.fromisoformat(date_of_birth)
+    if isinstance(today, str):
+        t = date.fromisoformat(today)
+        difference = t - date(birthday.year, birthday.month, birthday.day)
+    else:
+        difference = date.today() - date(birthday.year, birthday.month, birthday.day)
     return round(difference.days * 24 * 60)
 
 
