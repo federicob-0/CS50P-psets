@@ -1,32 +1,15 @@
-from seasons import check_input
 from seasons import to_minutes
 from seasons import to_words
 
 
-def test_check_input_hyphen():
-    assert check_input("1950,10,10") == False
-    assert check_input("2000/05/05") == False
-    assert check_input("1900_10_05") == False
-    assert check_input("1987 10 01") == False
-    assert check_input("1950-01-10") == True
-    assert check_input("2004-12-28") == True
-
-
-def test_check_input_isdate():
-    assert check_input("0000-10-10") == False
-    assert check_input("1-04-04") == False
-    assert check_input("2010-2-10") == False
-    assert check_input("2009-10-1") == False
-    assert check_input("1970-00-10") == False
-    assert check_input("1990-10-00") == False
-    assert check_input("1960-13-08") == False
-    assert check_input("1995-11-32") == False
-    assert check_input("1957-07-21") == True
-    assert check_input("1873-12-31") == True
-
-
 def test_to_minutes():
-    ...
+    assert to_minutes("2020-11-20", today="2021-11-20") == 525600
+    assert to_minutes("2017-01-30", today="2019-01-30") == 525600 * 2
+
+
+def test_to_minutes_leapyear():
+    assert to_minutes("2000-02-05", today= "2001-02-05") == 527040
+    assert to_minutes("2004-01-10", today= "2006-01-10") == 527040 + 525600
 
 
 def test_to_words():
